@@ -1,27 +1,88 @@
 ﻿#pragma once
-
-class Node
-{
-public:
-    explicit Node(int data);
-
-    explicit Node(int data, Node* nextnode);
+#include <memory>
+template<typename T>
+class Node {
+   public:
+    Node() = delete;
+    explicit Node(T data, Node* next_node = nullptr);
 
     Node(const Node& another);
 
-    int GetData() const;
+    Node(Node&& another) noexcept;
+    void Reset();
+    void Swap(Node& another);
+    Node<T>& operator=(Node another);
 
-    void SetData(int data);
+    T* GetData() const;
 
-    Node* GetNextNode();
+    void SetData(T data);
 
-    void SetNextNode(Node* next_node);
+    Node<T>* GetNextNode();
+
+    void SetNextNode(Node<T>* next_node);
 
     ~Node();
 
-    Node& operator=(const Node& another);
-
-private:
-    int data_;
-    Node* next_node_;
+   private:
+    T* data_;
+    Node<T>* next_node_;
 };
+template<typename T>
+Node<T>::Node(T data, Node* next_node) {
+    data_      = new T(data);
+    next_node_ = next_node;
+}
+
+template<typename T>
+void Node<T>::Reset() {
+    delete data_;
+    next_node_ = nullptr;
+}
+
+template<typename T>
+void Node<T>::Swap(Node& another) {
+    std::swap(data_, another.data_);
+    next_node_ = another.next_node_;
+}
+
+template<typename T>
+Node<T>& Node<T>::operator=(Node another) {
+    Swap(another);
+    return *this;
+}
+
+template<typename T>
+T* Node<T>::GetData() const {
+    return data_;
+}
+
+template<typename T>
+void Node<T>::SetData(T data) {
+    delete data_;
+    data_ = new T(data);
+}
+
+template<typename T>
+Node<T>* Node<T>::GetNextNode() {
+    return next_node_;
+}
+
+template<typename T>
+void Node<T>::SetNextNode(Node<T>* next_node) {
+    next_node_ = next_node;
+}
+template<typename T>
+Node<T>::~Node() {
+    Reset();
+}
+template<typename T>
+Node<T>::Node(Node&& another) noexcept {
+    data_      = std::move(another.data_);
+    next_node_ = another.next_node_;
+    another.Reset();
+}
+template<typename T>
+Node<T>::Node(const Node& another) {
+    data_      = another.data_;
+    next_node_ = another.next_node_;
+}
