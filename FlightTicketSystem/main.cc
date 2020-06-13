@@ -8,15 +8,19 @@
 
 #include "day_name.h"
 #include "flight.h"
-#include "flight_linked_list.h"
-#include "flight_list_initializer.h"
-#include "node.h"
+#include "flight_node.h"
 int main() {
-    auto* flight_list  = ds::InitFlightList();
-    auto* flight_list2 = new ds::FlightLinkedList(*flight_list);
+    ds::FlightNode fn1(new ds::Flight("uu", "uu1", "uu2", ds::DAYS::FRI,
+                                      std::array<uint8_t, 3>{8, 8, 8}
+                                      , std::array<uint8_t, 3>{8, 8, 8}
+    ));
+    ds::FlightNode fn2(fn1);
 
-    flight_list->Clear();
-    auto* temp = flight_list2->GetByDestination("Hangzhou");
-    printf("%s\n", temp->ToArray()[0]->GetAirPlaneNumber().c_str());
+    int16_t newavail[]{ 0,0,0 };
+
+    fn2.GetData()->SetAvailSeats(newavail);
+
+    printf("%d\n", fn1.GetData()->GetAvailLevel1());
+    printf("%d\n", fn2.GetData()->GetAvailLevel1());
     return 0;
 }

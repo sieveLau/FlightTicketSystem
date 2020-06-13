@@ -39,6 +39,9 @@
     <ClCompile Include="simple_flight_linked_list.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="flight_node.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="double_linked_list.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="defs.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="flight_node.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

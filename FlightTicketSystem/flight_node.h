@@ -14,6 +14,7 @@ namespace ds {
         void Reset();
         void Swap(FlightNode& another);
         FlightNode& operator=(FlightNode another);
+        ~FlightNode();
 
         // 返回指针，可以直接修改数据
         ds::Flight* GetData() const;
@@ -24,7 +25,7 @@ namespace ds {
 
         void SetNextNode(FlightNode* next_node);
 
-        ~FlightNode();
+        
 
        private:
         ds::Flight* data_;
