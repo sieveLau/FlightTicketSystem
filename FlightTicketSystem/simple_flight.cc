@@ -1,21 +1,18 @@
 #include "simple_flight.h"
+
 #include "defs.h"
-#include <array>
 
 namespace ds {
     SimpleFlight::SimpleFlight(std::string flight_number, u_int8_t* seat_want,
                                u_int8_t* seat_booked) {
         Reset();
         flight_number_ = flight_number;
-        if (seat_want != nullptr)
-        {
-            for (size_t i = 0; i < 3; ++i) { seat_want_[i] = seat_want[i];
-            }
+        if (seat_want != nullptr) {
+            for (size_t i = 0; i < 3; ++i) { seat_want_[i] = seat_want[i]; }
         }
         if (seat_booked != nullptr) {
             for (size_t i = 0; i < 3; ++i) { seat_booked_[i] = seat_booked[i]; }
         }
-
     }
 
     SimpleFlight& SimpleFlight::operator=(SimpleFlight another) {
@@ -57,10 +54,8 @@ namespace ds {
     }
 
     std::string SimpleFlight::GetFlightNumber() const { return flight_number_; }
-    void SimpleFlight::SetSeatWant(uint8_t* levelset)
-    {
-        for (int i = 0; i < 3; ++i) { seat_want_[i] = levelset[i];
-        }
+    void SimpleFlight::SetSeatWant(uint8_t* levelset) {
+        for (int i = 0; i < 3; ++i) { seat_want_[i] = levelset[i]; }
     }
 
     void SimpleFlight::SetSeatWant(u_int8_t seat_want_level1,
@@ -69,11 +64,9 @@ namespace ds {
         seat_want_[0] = seat_want_level1;
         seat_want_[1] = seat_want_level2;
         seat_want_[2] = seat_want_level3;
-
     }
 
-    void SimpleFlight::SetSeatBooked(uint8_t* levelset)
-    {
+    void SimpleFlight::SetSeatBooked(uint8_t* levelset) {
         for (int i = 0; i < 3; ++i) { seat_booked_[i] = levelset[i]; }
     }
 
@@ -87,16 +80,14 @@ namespace ds {
 
     uint8_t* SimpleFlight::GetSeatWant() const {
         uint8_t* result =
-            new uint8_t[3]{seat_want_[0], seat_want_[1],
-                                         seat_want_[2]};
+            new uint8_t[3]{seat_want_[0], seat_want_[1], seat_want_[2]};
         return result;
     }
 
-    uint8_t* SimpleFlight::GetSeatBooked() const
-    {
-        
-        uint8_t* result = new uint8_t[3]{seat_booked_[0], seat_booked_[1], seat_booked_[2]};
+    uint8_t* SimpleFlight::GetSeatBooked() const {
+        uint8_t* result =
+            new uint8_t[3]{seat_booked_[0], seat_booked_[1], seat_booked_[2]};
         return result;
     }
 
-} // namespace dc
+}  // namespace ds

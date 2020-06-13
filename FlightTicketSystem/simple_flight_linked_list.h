@@ -12,7 +12,7 @@ namespace ds {
         explicit SimpleFlightLinkedList(SimpleFlight sf);
         SimpleFlightLinkedList(const SimpleFlightLinkedList& another);
         ~SimpleFlightLinkedList();
-        
+
         // 只允许插在头部，不提供其他插入
         void Insert(SimpleFlight sf);
 
@@ -30,4 +30,4 @@ namespace ds {
         size_t length_;
     };
 
-}  // namespace sieve
+}  // namespace ds

@@ -1,4 +1,5 @@
 #include "flight.h"
+
 #include "defs.h"
 namespace ds {
     Flight::Flight(std::string destination, std::string flight_number,
@@ -115,6 +116,20 @@ namespace ds {
         for (size_t i = 0; i < 3; i++) {
             total_seats_[i]     = another.total_seats_[i];
             available_seats_[i] = another.available_seats_[i];
+        }
+    }
+
+    Flight::Flight(std::string destination, std::string flight_number,
+                   std::string air_plane_number, DAYS weekday,
+                   std::array<u_int8_t, 3> total_seats,
+                   std::array<u_int8_t, 3> available_seats) {
+        destination_      = destination;
+        flight_number_    = flight_number;
+        air_plane_number_ = air_plane_number;
+        weekday_          = weekday;
+        for (size_t i = 0; i < 3; i++) {
+            total_seats_[i]     = total_seats.at(i);
+            available_seats_[i] = available_seats.at(i);
         }
     }
 }  // namespace ds

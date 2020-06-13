@@ -1,6 +1,7 @@
 #ifndef __FLIGHT_H__
 #define __FLIGHT_H__
 
+#include <array>
 #include <string>
 
 #include "day_name.h"
@@ -20,6 +21,10 @@ namespace ds {
         Flight(std::string destination, std::string flight_number,
                std::string air_plane_number, DAYS weekday,
                u_int8_t* total_seats, u_int8_t* available_seats = nullptr);
+        Flight(std::string destination, std::string flight_number,
+               std::string air_plane_number, DAYS weekday,
+               std::array<u_int8_t, 3> total_seats,
+               std::array<u_int8_t, 3> available_seats);
         Flight(const Flight& another);
         Flight(Flight&&) noexcept;
         ~Flight();
