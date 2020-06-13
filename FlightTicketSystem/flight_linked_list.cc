@@ -43,24 +43,32 @@ namespace ds {
             current = current->GetNextNode();
         }
     }
-    FlightLinkedList::FlightLinkedList(Flight flight) {
+    FlightLinkedList::FlightLinkedList(Flight* flight) {
         FlightLinkedList();
-        Insert(std::move(flight));
+        Insert(flight);
     }
 
-    void FlightLinkedList::Insert(Flight flight) {
-        head_ = new Node<Flight>(std::move(flight), head_);
+    void FlightLinkedList::Insert(Flight* flight) {
+        head_ = new Node<Flight*>(flight, head_);
         ++length_;
     }
 
-    std::vector<Flight*> FlightLinkedList::GetByDestination(
+    void FlightLinkedList::Clear() {
+        while (head_ != nullptr) {
+            auto* current = head_->GetNextNode();
+            delete head_;
+            head_ = current;
+            --length_;
+        }
+    }
+    FlightLinkedList* FlightLinkedList::GetByDestination(
         std::string destination) {
         auto* current = head_;
-        std::vector<Flight*> result;
+        auto* result  = new FlightLinkedList;
         while (current != nullptr) {
             auto* data = current->GetData();
-            if (data->GetDestination() == destination) {
-                result.push_back(data);
+            if ((*data)->GetDestination() == destination) {
+                result->Insert(*data);
             }
             current = current->GetNextNode();
         }

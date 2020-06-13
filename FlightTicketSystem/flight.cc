@@ -2,6 +2,8 @@
 
 #include "defs.h"
 namespace ds {
+    Flight::Flight() { Reset(); }
+
     Flight::Flight(std::string destination, std::string flight_number,
                    std::string air_plane_number, DAYS weekday,
                    u_int8_t* total_seats, u_int8_t* available_seats) {
