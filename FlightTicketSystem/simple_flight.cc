@@ -48,8 +48,8 @@ namespace ds {
     }
 
     void SimpleFlight::Reset() {
-        SetSeatBooked();
-        SetSeatWant();
+        SetSeatBooked(0,0,0);
+        SetSeatWant(0,0,0);
         flight_number_ = "";
     }
 

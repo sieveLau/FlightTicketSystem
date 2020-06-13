@@ -2,27 +2,47 @@
 
 #include "node.h"
 #include "simple_flight.h"
+#include "simple_flight_node.h"
 
 namespace ds {
-    SimpleFlightLinkedList::SimpleFlightLinkedList() { head_ = nullptr;
+    SimpleFlightLinkedList::SimpleFlightLinkedList() {
+        head_   = nullptr;
         length_ = 0;
     }
 
-    SimpleFlightLinkedList::SimpleFlightLinkedList(ds::SimpleFlight sf) {
-        head_   = new Node<ds::SimpleFlight>(sf);
+    SimpleFlightLinkedList::SimpleFlightLinkedList(ds::SimpleFlight* sf) {
+        head_   = new SimpleFlightNode(sf);
         length_ = 1;
     }
 
     SimpleFlightLinkedList::SimpleFlightLinkedList(
-        const SimpleFlightLinkedList& another) {
-        length_       = 0;
-        head_         = nullptr;
+        const SimpleFlightLinkedList& another) : SimpleFlightLinkedList() {
         auto* current = another.head_;
-        while (current!=nullptr) { Insert(*(current->GetData()));
+        while (current != nullptr) {
+            Insert(*(current->GetData()));
             current = current->GetNextNode();
         }
     }
+    SimpleFlightLinkedList::SimpleFlightLinkedList(
+        SimpleFlightLinkedList&& another) noexcept {
+        head_ = another.head_;
+        length_ = another.length_;
+        another.Reset();
+    }
+    SimpleFlightLinkedList& SimpleFlightLinkedList::operator=(
+        SimpleFlightLinkedList another) {
+        Swap(another);
+        return *this;
+    }
 
+    void SimpleFlightLinkedList::Swap(SimpleFlightLinkedList& another) {
+        std::swap(head_, another.head_);
+        std::swap(length_, another.length_);
+    }
+    void SimpleFlightLinkedList::Reset() {
+        head_ = nullptr;
+        length_ = 0;
+    }
     SimpleFlightLinkedList::~SimpleFlightLinkedList() {
         auto* current = head_;
         while (current != nullptr) {
@@ -34,7 +54,11 @@ namespace ds {
     }
 
     void SimpleFlightLinkedList::Insert(ds::SimpleFlight sf) {
-        head_ = new Node<ds::SimpleFlight>(sf, head_);
+        head_ = new SimpleFlightNode(new SimpleFlight(std::move(sf)), head_);
+        ++length_;
+    }
+    void SimpleFlightLinkedList::Insert(SimpleFlight* sf) {
+        head_ = new SimpleFlightNode(sf, head_);
         ++length_;
     }
 

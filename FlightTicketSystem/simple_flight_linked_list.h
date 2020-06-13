@@ -4,17 +4,24 @@
 
 #include "node.h"
 #include "simple_flight.h"
+#include "simple_flight_node.h"
+
 namespace ds {
 
     class SimpleFlightLinkedList {
        public:
         SimpleFlightLinkedList();
-        explicit SimpleFlightLinkedList(SimpleFlight sf);
+        explicit SimpleFlightLinkedList(SimpleFlight* sf);
         SimpleFlightLinkedList(const SimpleFlightLinkedList& another);
+        SimpleFlightLinkedList(SimpleFlightLinkedList&& another) noexcept;
+        SimpleFlightLinkedList& operator=(SimpleFlightLinkedList another);
+        void Swap(SimpleFlightLinkedList& another);
+        void Reset();
         ~SimpleFlightLinkedList();
 
         // 只允许插在头部，不提供其他插入
         void Insert(SimpleFlight sf);
+        void Insert(SimpleFlight* sf);
 
         // 删除第一个匹配number的项
         void Delete(std::string flight_number);
@@ -26,7 +33,7 @@ namespace ds {
         ds::SimpleFlight* Get(std::string flight_number) const;
 
        private:
-        Node<ds::SimpleFlight>* head_;
+        SimpleFlightNode* head_;
         size_t length_;
     };
 

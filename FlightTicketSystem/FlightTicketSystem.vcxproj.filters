@@ -13,34 +13,40 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\flight linked list">
+      <UniqueIdentifier>{8b2bc6e2-f085-4594-aac2-e407d0829982}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\customer linked list">
+      <UniqueIdentifier>{5dd5780e-4b90-43ab-99a3-e26f6ff9733e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="double_linked_list.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="double_linked_node.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="customer.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="flight.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="simple_flight.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="simple_flight_linked_list.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="flight_node.cc">
-      <Filter>源文件</Filter>
+    <ClCompile Include="flight.cc">
+      <Filter>源文件\flight linked list</Filter>
     </ClCompile>
     <ClCompile Include="flight_linked_list.cc">
+      <Filter>源文件\flight linked list</Filter>
+    </ClCompile>
+    <ClCompile Include="flight_node.cc">
+      <Filter>源文件\flight linked list</Filter>
+    </ClCompile>
+    <ClCompile Include="customer.cc">
+      <Filter>源文件\customer linked list</Filter>
+    </ClCompile>
+    <ClCompile Include="day_name.cc">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_flight.cc">
+      <Filter>源文件\customer linked list</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_flight_linked_list.cc">
+      <Filter>源文件\customer linked list</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_flight_node.cc">
+      <Filter>源文件\customer linked list</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,32 +62,38 @@
     <ClInclude Include="node.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="customer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="day_name.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="flight.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="simple_flight.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="simple_flight_linked_list.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="defs.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="flight_node.h">
-      <Filter>源文件</Filter>
-    </ClInclude>
     <ClInclude Include="flight_linked_list.h">
-      <Filter>源文件</Filter>
+      <Filter>源文件\flight linked list</Filter>
     </ClInclude>
     <ClInclude Include="flight_list_initializer.h">
+      <Filter>源文件\flight linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="flight_node.h">
+      <Filter>源文件\flight linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="customer.h">
+      <Filter>源文件\customer linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="flight_searcher.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_flight.h">
+      <Filter>源文件\customer linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_flight_linked_list.h">
+      <Filter>源文件\customer linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_flight_node.h">
+      <Filter>源文件\customer linked list</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
