@@ -57,6 +57,9 @@
     <ClCompile Include="customer_node.cc">
       <Filter>源文件\customer linked list</Filter>
     </ClCompile>
+    <ClCompile Include="flight_booker.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="double_linked_list.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="customer_node.h">
       <Filter>源文件\customer linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="flight_booker.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

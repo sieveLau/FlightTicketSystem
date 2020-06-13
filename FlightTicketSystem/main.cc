@@ -26,10 +26,14 @@ int main() {
     ds::Customer c1("adam");
     c1.SetSeatWant("uu1", 1, 2, 0);
     ds::Customer c2("abam");
-    c2.SetSeatWant("uu2", 13, 28, 0);
+    c1.SetSeatWant("uu0", 2, 3, 0);
 
     ds::CustomerLinkedList cll(new ds::Customer(c1));
     cll.Insert(new ds::Customer(c2));
+    cll.Insert(new ds::Customer(c2));
+
+    ds::CustomerLinkedList cll2(cll);
+
     auto* temp = cll.Get("adam");
     std::cout << temp->GetSeatWant("uu1")[0];
 

@@ -13,8 +13,8 @@ namespace ds {
     }
 
     Customer::Customer(Customer&& another) noexcept {
-        name_ = std::move(another.name_);
-        sfll_ = std::move(another.sfll_);
+        name_ = another.name_;
+        sfll_ = another.sfll_;
         another.Reset();
     }
 

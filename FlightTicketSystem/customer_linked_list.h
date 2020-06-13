@@ -8,8 +8,9 @@ namespace ds {
         bool sorted_;
 
         void InsertToTail(Customer customer);
+        void InsertToTail(Customer* customer);
     public:
-        CustomerLinkedList(bool sorted=false);
+        CustomerLinkedList()=delete;
         explicit CustomerLinkedList(Customer* customer,bool sorted=false);
         CustomerLinkedList(const CustomerLinkedList& another);
         CustomerLinkedList(CustomerLinkedList&& another)noexcept;

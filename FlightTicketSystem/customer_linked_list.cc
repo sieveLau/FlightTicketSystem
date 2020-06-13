@@ -2,19 +2,21 @@
 #include <functional>
 
 void ds::CustomerLinkedList::InsertToTail(Customer customer) {
+    InsertToTail(new Customer(customer));
+}
+
+void ds::CustomerLinkedList::InsertToTail(Customer* customer) {
     if (head_ == nullptr) {
-        Insert(new Customer(std::move(customer)));
+        head_=new CustomerNode(customer);
+        ++length_;
         return;
     }
     auto* current = head_;
-    for (int i = 0; i < length_ - 1; ++i) { current = current->GetNextNode(); }
-    current->SetNextNode(new CustomerNode(new Customer(std::move(customer))));
+    while(current->GetNextNode()!=nullptr) { current = current->GetNextNode(); }
+    current->SetNextNode(new CustomerNode(customer));
+    ++length_;
 }
-ds::CustomerLinkedList::CustomerLinkedList(bool sorted) {
-    head_   = nullptr;
-    length_ = 0;
-    sorted_ = sorted;
-}
+
 ds::CustomerLinkedList::CustomerLinkedList(Customer* customer, bool sorted) {
     head_   = new CustomerNode(customer);
     length_ = 1;
@@ -23,12 +25,12 @@ ds::CustomerLinkedList::CustomerLinkedList(Customer* customer, bool sorted) {
 ds::CustomerLinkedList::CustomerLinkedList(const CustomerLinkedList& another) {
     auto* current = another.head_;
     sorted_       = another.sorted_;
-    length_       = another.length_;
-
+    head_ = nullptr;
     while (current != nullptr) {
         InsertToTail(*current->GetData());
         current = current->GetNextNode();
     }
+    length_       = another.length_;
 }
 ds::CustomerLinkedList::CustomerLinkedList(
     CustomerLinkedList&& another) noexcept {
@@ -60,12 +62,10 @@ ds::CustomerLinkedList& ds::CustomerLinkedList::operator=(
     return *this;
 }
 void ds::CustomerLinkedList::Insert(Customer* customer) {
-    head_ = new CustomerNode(customer, head_);
-    ++length_;
+    InsertToTail(customer);
 }
 void ds::CustomerLinkedList::Insert(Customer customer) {
-    head_ = new CustomerNode(new Customer(std::move(customer)), head_);
-    ++length_;
+    InsertToTail(customer);
 }
 void ds::CustomerLinkedList::InsertSorted(Customer* customer) {
     if (!sorted_)throw new std::bad_function_call();

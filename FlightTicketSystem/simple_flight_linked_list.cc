@@ -53,9 +53,8 @@ namespace ds {
         length_ = 0;
     }
 
-    void SimpleFlightLinkedList::Insert(ds::SimpleFlight sf) {
-        head_ = new SimpleFlightNode(new SimpleFlight(std::move(sf)), head_);
-        ++length_;
+    void SimpleFlightLinkedList::Insert(SimpleFlight sf) {
+        Insert(new SimpleFlight(sf));
     }
     void SimpleFlightLinkedList::Insert(SimpleFlight* sf) {
         head_ = new SimpleFlightNode(sf, head_);

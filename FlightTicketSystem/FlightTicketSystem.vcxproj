@@ -149,6 +149,7 @@
     <ClCompile Include="customer_node.cc" />
     <ClCompile Include="day_name.cc" />
     <ClCompile Include="flight.cc" />
+    <ClCompile Include="flight_booker.cc" />
     <ClCompile Include="flight_linked_list.cc" />
     <ClCompile Include="flight_node.cc" />
     <ClCompile Include="main.cc" />
@@ -180,6 +181,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="flight.h" />
+    <ClInclude Include="flight_booker.h" />
     <ClInclude Include="flight_linked_list.h" />
     <ClInclude Include="flight_list_initializer.h" />
     <ClInclude Include="flight_node.h" />
