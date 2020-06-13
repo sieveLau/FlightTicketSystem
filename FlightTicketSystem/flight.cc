@@ -1,4 +1,5 @@
 #include "flight.h"
+#include "defs.h"
 namespace ds {
     Flight::Flight(std::string destination, std::string flight_number,
                    std::string air_plane_number, DAYS weekday,

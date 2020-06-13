@@ -21,13 +21,22 @@
     <ClCompile Include="double_linked_node.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="linked_list.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="node.cc">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="sorted_linked_list.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="customer.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="flight.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_flight.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_flight_linked_list.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,6 +54,24 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="sorted_linked_list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="customer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="day_name.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="flight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_flight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_flight_linked_list.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="defs.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

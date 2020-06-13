@@ -12,9 +12,9 @@ class Node {
     void Reset();
     void Swap(Node& another);
     Node<T>& operator=(Node another);
-
+    // 返回指针，可以直接修改数据
     T* GetData() const;
-
+    // 把原来的delete，再用复制构造器新建一个
     void SetData(T data);
 
     Node<T>* GetNextNode();

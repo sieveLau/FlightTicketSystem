@@ -3,14 +3,38 @@
 #include "node.h"
 #include "simple_flight.h"
 
-namespace sieve {
-    SimpleFlightLinkedList::SimpleFlightLinkedList(dc::SimpleFlight sf) {
-        head_   = new Node<dc::SimpleFlight>(sf);
+namespace ds {
+    SimpleFlightLinkedList::SimpleFlightLinkedList() { head_ = nullptr;
+        length_ = 0;
+    }
+
+    SimpleFlightLinkedList::SimpleFlightLinkedList(ds::SimpleFlight sf) {
+        head_   = new Node<ds::SimpleFlight>(sf);
         length_ = 1;
     }
 
-    void SimpleFlightLinkedList::Insert(dc::SimpleFlight sf) {
-        head_ = new Node<dc::SimpleFlight>(sf, head_);
+    SimpleFlightLinkedList::SimpleFlightLinkedList(
+        const SimpleFlightLinkedList& another) {
+        length_       = 0;
+        head_         = nullptr;
+        auto* current = another.head_;
+        while (current!=nullptr) { Insert(*(current->GetData()));
+            current = current->GetNextNode();
+        }
+    }
+
+    SimpleFlightLinkedList::~SimpleFlightLinkedList() {
+        auto* current = head_;
+        while (current != nullptr) {
+            head_ = current->GetNextNode();
+            delete current;
+            current = head_;
+        }
+        length_ = 0;
+    }
+
+    void SimpleFlightLinkedList::Insert(ds::SimpleFlight sf) {
+        head_ = new Node<ds::SimpleFlight>(sf, head_);
         ++length_;
     }
 
@@ -19,9 +43,7 @@ namespace sieve {
         auto* next    = current;
         while (next != nullptr) {
             if (next->GetData()->GetFlightNumber() == flight_number) {
-                if (next == head_) {
-                    head_ = head_->GetNextNode();
-                }
+                if (next == head_) { head_ = head_->GetNextNode(); }
                 current->SetNextNode(next->GetNextNode());
 
                 delete next;
@@ -34,7 +56,7 @@ namespace sieve {
         }
     }
 
-    dc::SimpleFlight* SimpleFlightLinkedList::Get(
+    ds::SimpleFlight* SimpleFlightLinkedList::Get(
         std::string flight_number) const {
         auto* current = head_;
         while (current != nullptr) {
@@ -45,4 +67,4 @@ namespace sieve {
         }
         return nullptr;
     }
-}  // namespace sieve
+} // namespace sieve

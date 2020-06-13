@@ -4,6 +4,7 @@
 #include <string>
 
 #include "day_name.h"
+#include "defs.h"
 namespace ds {
     class Flight {
         std::string destination_;
