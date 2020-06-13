@@ -12,7 +12,6 @@ namespace ds {
         SimpleFlightLinkedList* sfll_;
 
        public:
-        enum CANCEL_OPTION { BOOKED, WANT };
         Customer() = delete;
         explicit Customer(std::string name);
         ~Customer();
@@ -27,13 +26,13 @@ namespace ds {
         uint8_t* GetSeatWant(std::string flight_number);
         uint8_t* GetSeatBooked(std::string flight_number);
 
-        void SetSeatWant(std::string flight_number, uint8_t level1 = 0,
-                         uint8_t level2 = 0, uint8_t level3 = 0);
+        void SetSeatWant(std::string flight_number, uint8_t level1,
+                         uint8_t level2, uint8_t level3);
 
         void SetSeatWant(std::string flight_number, uint8_t* levelset);
         
-        void SetSeatBooked(std::string flight_number, uint8_t level1 = 0,
-                         uint8_t level2 = 0, uint8_t level3 = 0);
+        void SetSeatBooked(std::string flight_number, uint8_t level1,
+                         uint8_t level2, uint8_t level3);
         
         void SetSeatBooked(std::string flight_number, uint8_t* levelset);
         

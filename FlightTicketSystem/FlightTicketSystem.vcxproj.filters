@@ -19,6 +19,9 @@
     <Filter Include="源文件\customer linked list">
       <UniqueIdentifier>{5dd5780e-4b90-43ab-99a3-e26f6ff9733e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\customer linked list\simple flight linked list">
+      <UniqueIdentifier>{7638de06-4b27-4924-96aa-7f663835a3a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cc">
@@ -39,13 +42,19 @@
     <ClCompile Include="day_name.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="simple_flight.cc">
+    <ClCompile Include="customer_linked_list.cc">
       <Filter>源文件\customer linked list</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_flight.cc">
+      <Filter>源文件\customer linked list\simple flight linked list</Filter>
     </ClCompile>
     <ClCompile Include="simple_flight_linked_list.cc">
-      <Filter>源文件\customer linked list</Filter>
+      <Filter>源文件\customer linked list\simple flight linked list</Filter>
     </ClCompile>
     <ClCompile Include="simple_flight_node.cc">
+      <Filter>源文件\customer linked list\simple flight linked list</Filter>
+    </ClCompile>
+    <ClCompile Include="customer_node.cc">
       <Filter>源文件\customer linked list</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,13 +95,19 @@
     <ClInclude Include="flight_searcher.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="simple_flight.h">
+    <ClInclude Include="customer_linked_list.h">
       <Filter>源文件\customer linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_flight.h">
+      <Filter>源文件\customer linked list\simple flight linked list</Filter>
     </ClInclude>
     <ClInclude Include="simple_flight_linked_list.h">
-      <Filter>源文件\customer linked list</Filter>
+      <Filter>源文件\customer linked list\simple flight linked list</Filter>
     </ClInclude>
     <ClInclude Include="simple_flight_node.h">
+      <Filter>源文件\customer linked list\simple flight linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="customer_node.h">
       <Filter>源文件\customer linked list</Filter>
     </ClInclude>
   </ItemGroup>
