@@ -11,13 +11,14 @@
 
 namespace ds {
     int DiffDay(DAYS target_day, DAYS today);
-    void SearchFlight(ds::FlightLinkedList *flight_list,
+    inline void SearchFlight(FlightLinkedList* flight_list,
                       std::string destination, DAYS today) {
-        auto all_flights =
-            (*flight_list).GetByDestination(std::move(destination));
+
+        FlightLinkedList all_flights =
+            *(flight_list->GetByDestination(std::move(destination)));
 
         //目的地筛选的时候就没有符合的话，就退出。
-        if (all_flights->empty()) {
+        if (all_flights.empty()) {
             std::cout << "No flight matches your requirement!" << std::endl;
             return;
         }
@@ -28,10 +29,13 @@ namespace ds {
                "Fly Date");
 
         int diffday                = 7;
-        auto *all_flights_as_array = all_flights->ToArray();
+
+        Flight **all_flights_as_array = all_flights.ToArray();
+
         FlightLinkedList nearest_flights;
-        for (size_t i = 0; i < all_flights->GetLength(); ++i) {
-            auto *flight = all_flights_as_array[i];
+
+        for (size_t i = 0; i < all_flights.GetLength(); ++i) {
+            Flight *flight = all_flights_as_array[i];
             printf("%-18s%-18s%-18s\n", flight->GetFlightNumber().c_str(),
                    flight->GetAirPlaneNumber().c_str(),
                    ds::DAYSToString(flight->GetDate()).c_str());
@@ -40,9 +44,9 @@ namespace ds {
             if (temp < diffday) {
                 diffday = temp;
                 nearest_flights.Clear();
-                nearest_flights.Insert(flight);
+                nearest_flights.Insert(*flight);
             } else if (temp == diffday) {
-                nearest_flights.Insert(flight);
+                nearest_flights.Insert(*flight);
             }
         }
         std::cout << std::endl;

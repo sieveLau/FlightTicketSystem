@@ -9,7 +9,7 @@ namespace ds {
     /*
 输入航班信息
 */
-    FlightLinkedList* InitFlightList() {
+    inline FlightLinkedList* InitFlightList() {
         using std::array;
         auto* fll = new FlightLinkedList();
 

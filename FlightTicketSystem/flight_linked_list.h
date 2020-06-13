@@ -43,6 +43,7 @@ namespace ds {
             auto* current   = head_;
             Flight** result = new Flight*[length_];
             for (size_t i = 0; i < length_; i++) {
+                if (current == nullptr)break;
                 result[i] = current->GetData();
                 current   = current->GetNextNode();
             }
@@ -53,6 +54,8 @@ namespace ds {
 
         // 根据目的地找飞机，输出所有飞机
         FlightLinkedList* GetByDestination(std::string destination);
+
+        Flight* GetByFlightNumber(std::string flight_number);
     };
 }  // namespace ds
 

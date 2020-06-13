@@ -18,10 +18,12 @@ namespace ds {
 
     FlightLinkedList::~FlightLinkedList() {
         auto* current = head_;
-        while (current != nullptr) {
+        while (length_!=0) {
+            if (current == nullptr)break;
             head_ = current->GetNextNode();
             delete current;
             current = head_;
+            --length_;
         }
         length_ = 0;
     }
@@ -79,5 +81,16 @@ namespace ds {
             current = current->GetNextNode();
         }
         return result;
+    }
+    Flight* FlightLinkedList::GetByFlightNumber(std::string flight_number) {
+        auto* current = head_;
+        while (current != nullptr) {
+            auto* data = current->GetData();
+            if ((*data).GetFlightNumber() == flight_number) {
+                return data;
+            }
+            current = current->GetNextNode();
+        }
+        return nullptr;
     }
 }  // namespace ds

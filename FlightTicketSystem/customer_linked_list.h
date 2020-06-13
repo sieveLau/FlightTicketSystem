@@ -10,7 +10,7 @@ namespace ds {
         void InsertToTail(Customer customer);
         void InsertToTail(Customer* customer);
     public:
-        CustomerLinkedList()=delete;
+        explicit CustomerLinkedList(bool sorted);
         explicit CustomerLinkedList(Customer* customer,bool sorted=false);
         CustomerLinkedList(const CustomerLinkedList& another);
         CustomerLinkedList(CustomerLinkedList&& another)noexcept;

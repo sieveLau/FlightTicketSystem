@@ -16,6 +16,11 @@ void ds::CustomerLinkedList::InsertToTail(Customer* customer) {
     current->SetNextNode(new CustomerNode(customer));
     ++length_;
 }
+ds::CustomerLinkedList::CustomerLinkedList(bool sorted) {
+    head_ = nullptr;
+    length_ = 0;
+    sorted_ = sorted;
+}
 
 ds::CustomerLinkedList::CustomerLinkedList(Customer* customer, bool sorted) {
     head_   = new CustomerNode(customer);
