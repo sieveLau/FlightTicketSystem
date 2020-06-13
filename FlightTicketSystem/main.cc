@@ -1,7 +1,7 @@
-#include <stdint.h>
 #include <sys/types.h>
 
 #include <cstddef>
+#include <cstdint>
 #include <cstdio>
 #include <initializer_list>
 #include <iostream>
@@ -18,7 +18,7 @@
 int main() {
     auto* flight_list = ds::InitFlightList();
 
-    ds::SearchFlight(flight_list, "Hangzhou", ds::DAYS::WES);
+    ds::SearchFlight(flight_list, "Beijing", ds::DAYS::WES);
     delete flight_list;
     return 0;
 }

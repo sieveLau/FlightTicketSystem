@@ -64,7 +64,7 @@ namespace ds {
                    flight->GetFlightNumber().c_str(),
                    flight->GetAirPlaneNumber().c_str(),
                    ds::DAYSToString(flight->GetDate()).c_str(), "",
-                   flight->GetAvailLevel2(), flight->GetAvailLevel2(),
+                   flight->GetAvailLevel1(), flight->GetAvailLevel2(),
                    flight->GetAvailLevel3());
         }
     }
