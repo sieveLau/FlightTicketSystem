@@ -4,10 +4,10 @@
 #include <vector>
 
 #include "flight.h"
-#include "node.h"
+#include "flight_node.h"
 namespace ds {
     class FlightLinkedList {
-        Node<Flight*>* head_;
+        FlightNode* head_;
         size_t length_;
 
         Flight* Get(size_t position) {
@@ -25,7 +25,7 @@ namespace ds {
 
        public:
         FlightLinkedList();
-        FlightLinkedList(Flight* flight);
+        explicit FlightLinkedList(Flight* flight);
         FlightLinkedList(const FlightLinkedList& another);
         FlightLinkedList(FlightLinkedList&& another) noexcept;
         FlightLinkedList& operator=(FlightLinkedList another);

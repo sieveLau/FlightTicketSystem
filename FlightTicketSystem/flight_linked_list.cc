@@ -3,8 +3,9 @@
 #include <utility>
 
 #include "flight.h"
-#include "node.h"
+#include "flight_node.h"
 namespace ds {
+    
     FlightLinkedList::FlightLinkedList() {
         head_   = nullptr;
         length_ = 0;
@@ -38,26 +39,25 @@ namespace ds {
         head_   = another.head_;
         another.Reset();
     }
-    FlightLinkedList::FlightLinkedList(const FlightLinkedList& another) {
-        FlightLinkedList();
+    FlightLinkedList::FlightLinkedList(const FlightLinkedList& another): FlightLinkedList::FlightLinkedList() {
         auto* current = another.head_;
+        // 用值传递的Insert来复制FlightNode
         while (current != nullptr) {
-            Insert(*(current->GetData()));
+            Insert(*current->GetData());
             current = current->GetNextNode();
         }
     }
-    FlightLinkedList::FlightLinkedList(Flight* flight) {
-        FlightLinkedList();
+    FlightLinkedList::FlightLinkedList(Flight* flight) : FlightLinkedList(){
         Insert(flight);
     }
 
     void FlightLinkedList::Insert(Flight* flight) {
-        head_ = new Node<Flight*>(flight, head_);
+        head_ = new FlightNode(flight, head_);
         ++length_;
     }
 
     void FlightLinkedList::Insert(Flight flight) {
-        head_ = new Node<Flight*>(new Flight(std::move(flight)), head_);
+        head_ = new FlightNode(new Flight(std::move(flight)), head_);
         ++length_;
     }
     void FlightLinkedList::Clear() {
@@ -68,8 +68,7 @@ namespace ds {
             --length_;
         }
     }
-    FlightLinkedList* FlightLinkedList::GetByDestination(
-        std::string destination) {
+    FlightLinkedList* FlightLinkedList::GetByDestination(std::string destination) {
         auto* current = head_;
         auto* result  = new FlightLinkedList;
         while (current != nullptr) {
