@@ -13,7 +13,7 @@ class Node {
     void Swap(Node& another);
     Node<T>& operator=(Node another);
     // 返回指针，可以直接修改数据
-    T* GetData() const;
+    T GetData() const;
     // 把原来的delete，再用复制构造器新建一个
     void SetData(T data);
 
@@ -24,18 +24,17 @@ class Node {
     ~Node();
 
    private:
-    T* data_;
+    T data_;
     Node<T>* next_node_;
 };
 template<typename T>
 Node<T>::Node(T data, Node* next_node) {
-    data_      = new T(data);
+    data_      = data;
     next_node_ = next_node;
 }
 
 template<typename T>
 void Node<T>::Reset() {
-    delete data_;
     next_node_ = nullptr;
 }
 
@@ -52,7 +51,7 @@ Node<T>& Node<T>::operator=(Node another) {
 }
 
 template<typename T>
-T* Node<T>::GetData() const {
+T Node<T>::GetData() const {
     return data_;
 }
 
@@ -83,6 +82,6 @@ Node<T>::Node(Node&& another) noexcept {
 }
 template<typename T>
 Node<T>::Node(const Node& another) {
-    data_      = another.data_;
+    data_      = *(new T(another.data_));
     next_node_ = another.next_node_;
 }

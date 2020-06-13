@@ -1,6 +1,9 @@
 #include "flight_linked_list.h"
 
+#include <utility>
+
 #include "flight.h"
+#include "node.h"
 namespace ds {
     FlightLinkedList::FlightLinkedList() {
         head_   = nullptr;
@@ -39,7 +42,7 @@ namespace ds {
         FlightLinkedList();
         auto* current = another.head_;
         while (current != nullptr) {
-            Insert(*current->GetData());
+            Insert(*(current->GetData()));
             current = current->GetNextNode();
         }
     }
@@ -53,6 +56,10 @@ namespace ds {
         ++length_;
     }
 
+    void FlightLinkedList::Insert(Flight flight) {
+        head_ = new Node<Flight*>(new Flight(std::move(flight)), head_);
+        ++length_;
+    }
     void FlightLinkedList::Clear() {
         while (head_ != nullptr) {
             auto* current = head_->GetNextNode();
@@ -67,8 +74,8 @@ namespace ds {
         auto* result  = new FlightLinkedList;
         while (current != nullptr) {
             auto* data = current->GetData();
-            if ((*data)->GetDestination() == destination) {
-                result->Insert(*data);
+            if ((*data).GetDestination() == destination) {
+                result->Insert(data);
             }
             current = current->GetNextNode();
         }

@@ -9,6 +9,7 @@ namespace ds {
     class FlightLinkedList {
         Node<Flight*>* head_;
         size_t length_;
+
         Flight* Get(size_t position) {
             auto* current = head_;
             for (size_t i = 0; i < position; i++) {
@@ -19,7 +20,7 @@ namespace ds {
                     return nullptr;
                 }
             }
-            return *(current->GetData());
+            return current->GetData();
         };
 
        public:
@@ -34,6 +35,7 @@ namespace ds {
 
         // 把flight插入到头部
         void Insert(Flight* flight);
+        void Insert(Flight flight);
 
         bool empty() const { return !(length_); }
         size_t GetLength() const { return length_; }
@@ -41,7 +43,7 @@ namespace ds {
             auto* current   = head_;
             Flight** result = new Flight*[length_];
             for (size_t i = 0; i < length_; i++) {
-                result[i] = *current->GetData();
+                result[i] = current->GetData();
                 current   = current->GetNextNode();
             }
             return result;
