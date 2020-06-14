@@ -48,8 +48,8 @@ namespace ds {
     }
 
     void SimpleFlight::Reset() {
-        SetSeatBooked(0,0,0);
-        SetSeatWant(0,0,0);
+        SetSeatBooked(0, 0, 0);
+        SetSeatWant(0, 0, 0);
         flight_number_ = "";
     }
 
@@ -84,6 +84,8 @@ namespace ds {
         return result;
     }
 
+    // 返回new出来的uint8_t数组
+    // 无法修改内部数据
     uint8_t* SimpleFlight::GetSeatBooked() const {
         uint8_t* result =
             new uint8_t[3]{seat_booked_[0], seat_booked_[1], seat_booked_[2]};

@@ -1,5 +1,9 @@
 #include "flight.h"
 
+#include <bits/stdint-uintn.h>
+
+#include <iostream>
+
 #include "defs.h"
 namespace ds {
     Flight::Flight() { Reset(); }
@@ -69,6 +73,15 @@ namespace ds {
 
     u_int8_t Flight::GetTotalLevel3() const { return total_seats_[2]; }
 
+    // 不会影响内部数据
+    // 用完务必delete
+    uint8_t* Flight::GetAvailAll() const {
+        return new u_int8_t[3]{
+            available_seats_[0],
+            available_seats_[1],
+            available_seats_[2],
+        };
+    }
     u_int8_t Flight::GetAvailLevel1() const { return available_seats_[0]; }
 
     u_int8_t Flight::GetAvailLevel2() const { return available_seats_[1]; }
@@ -102,6 +115,10 @@ namespace ds {
 
         for (size_t i = 0; i < 3; i++) {
             if (result[i] > total_seats_[i]) {
+#ifdef DEBUG
+                std::cerr << "Too much tickets! Fake tickets? My number is "
+                          << flight_number_ << " (Flight::Refund)";
+#endif  // DEBUG
                 return -1;
             }
         }

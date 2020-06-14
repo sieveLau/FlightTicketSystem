@@ -1,6 +1,8 @@
 #ifndef __FLIGHT_H__
 #define __FLIGHT_H__
 
+#include <bits/stdint-uintn.h>
+
 #include <array>
 #include <string>
 
@@ -40,6 +42,9 @@ namespace ds {
         u_int8_t GetTotalLevel1() const;
         u_int8_t GetTotalLevel2() const;
         u_int8_t GetTotalLevel3() const;
+
+        uint8_t* GetAvailAll() const;
+
         u_int8_t GetAvailLevel1() const;
         u_int8_t GetAvailLevel2() const;
         u_int8_t GetAvailLevel3() const;

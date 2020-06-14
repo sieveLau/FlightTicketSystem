@@ -2,7 +2,6 @@
 
 namespace ds {
     Customer::Customer(std::string name) {
-
         name_ = name;
         sfll_ = new SimpleFlightLinkedList();
     }
@@ -24,74 +23,65 @@ namespace ds {
     }
 
     void Customer::Swap(Customer& another) {
-        using  std::swap;
+        using std::swap;
         swap(name_, another.name_);
         swap(sfll_, another.sfll_);
     }
 
-    void Customer::Reset()
-    { 
+    void Customer::Reset() {
         name_ = "";
         delete sfll_;
     }
 
-    Customer& Customer::operator=(Customer another) { 
+    Customer& Customer::operator=(Customer another) {
         Swap(another);
         return *this;
     }
 
-    uint8_t* Customer::GetSeatWant(std::string flight_number)
-    {
+    uint8_t* Customer::GetSeatWant(std::string flight_number) {
         auto* sf = sfll_->Get(flight_number);
         if (sf == nullptr)
             return nullptr;
         return sf->GetSeatWant();
     }
 
-    uint8_t* Customer::GetSeatBooked(std::string flight_number)
-    {
+    // è¿”å›žçš„æ•°ç»„æ— æ³•ç”¨äºŽä¿®æ”¹å·²è®¢ç¥¨æ•°é‡
+    // å¦‚æžœè¦ä¿®æ”¹ï¼Œè¯·ä½¿ç”¨Customer::SetSeatBooked
+    uint8_t* Customer::GetSeatBooked(std::string flight_number) {
         auto* sf = sfll_->Get(flight_number);
         if (sf == nullptr)
             return nullptr;
         return sf->GetSeatBooked();
     }
 
-    // °´º½°àºÅÐ´ÈëÐèÇóµÄ×ùÎ»Êý
-    // Èç¹ûº½°àºÅ²»´æÔÚ£¬»áÐÂ½¨ÔÙ²åÈë
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½Â½ï¿½ï¿½Ù²ï¿½ï¿½ï¿½
     void Customer::SetSeatWant(std::string flight_number, uint8_t level1,
-        uint8_t level2, uint8_t level3)
-    {
+                               uint8_t level2, uint8_t level3) {
         SimpleFlight* sf1 = sfll_->Get(flight_number);
-        if (sf1 == nullptr)
-        {
+        if (sf1 == nullptr) {
             uint8_t seat_want[3] = {level1, level2, level3};
-            sfll_->Insert(
-                SimpleFlight(flight_number, seat_want));
+            sfll_->Insert(SimpleFlight(flight_number, seat_want));
         } else {
             sf1->SetSeatWant(level1, level2, level3);
         }
-        
-
     }
 
-    void Customer::SetSeatWant(std::string flight_number, uint8_t* levelset)
-    {
+    void Customer::SetSeatWant(std::string flight_number, uint8_t* levelset) {
         SimpleFlight* sf1 = sfll_->Get(flight_number);
         if (sf1 == nullptr) {
-            
             sfll_->Insert(SimpleFlight(flight_number, levelset));
         } else {
             sf1->SetSeatWant(levelset);
         }
     }
 
-
     void Customer::SetSeatBooked(std::string flight_number, uint8_t level1,
                                  uint8_t level2, uint8_t level3) {
         SimpleFlight* sf1 = sfll_->Get(flight_number);
         if (sf1 == nullptr) {
             uint8_t seat_booked[3] = {level1, level2, level3};
-            sfll_->Insert(SimpleFlight(flight_number, nullptr,seat_booked));
+            sfll_->Insert(SimpleFlight(flight_number, nullptr, seat_booked));
         } else {
             sf1->SetSeatBooked(level1, level2, level3);
         }
@@ -100,11 +90,10 @@ namespace ds {
     void Customer::SetSeatBooked(std::string flight_number, uint8_t* levelset) {
         SimpleFlight* sf1 = sfll_->Get(flight_number);
         if (sf1 == nullptr) {
-            sfll_->Insert(SimpleFlight(flight_number, nullptr,levelset));
+            sfll_->Insert(SimpleFlight(flight_number, nullptr, levelset));
         } else {
             sf1->SetSeatBooked(levelset);
         }
     }
 
-
-} // namespace ds
+}  // namespace ds

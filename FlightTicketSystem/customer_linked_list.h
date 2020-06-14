@@ -1,39 +1,43 @@
 #pragma once
+#include <bits/stdint-uintn.h>
+
+#include <array>
+#include <cstddef>
+
 #include "customer_node.h"
 namespace ds {
-    class CustomerLinkedList
-    {
+    class CustomerLinkedList {
         CustomerNode* head_;
         size_t length_;
         bool sorted_;
 
         void InsertToTail(Customer customer);
         void InsertToTail(Customer* customer);
-    public:
+
+       public:
         explicit CustomerLinkedList(bool sorted);
-        explicit CustomerLinkedList(Customer* customer,bool sorted=false);
+        explicit CustomerLinkedList(Customer* customer, bool sorted = false);
         CustomerLinkedList(const CustomerLinkedList& another);
-        CustomerLinkedList(CustomerLinkedList&& another)noexcept;
+        CustomerLinkedList(CustomerLinkedList&& another) noexcept;
         ~CustomerLinkedList();
         void Swap(CustomerLinkedList& another);
         void Reset();
         CustomerLinkedList& operator=(CustomerLinkedList another);
 
-        // ÎŞĞò°æ
-        // FIFOËùÒÔÊÊºÏºò²¹¶ÓÁĞ
+        // æ— åºç‰ˆ
+        // FIFOæ‰€ä»¥é€‚åˆå€™è¡¥é˜Ÿåˆ—
         void Insert(Customer* customer);
         void Insert(Customer customer);
 
-        // ÓĞĞò°æ£¬°´ĞÕÃûÅÅĞò
-        // ÊÊºÏÒÑ¾­ÂòÆ±µÄ¶ÓÁĞ
+        // æœ‰åºç‰ˆï¼ŒæŒ‰å§“åæ’åº
+        // é€‚åˆå·²ç»ä¹°ç¥¨çš„é˜Ÿåˆ—
         void InsertSorted(Customer* customer);
         void InsertSorted(Customer customer);
 
-        // ¼ÙÉèÃû×ÖÊÇÎ¨Ò»µÄ£¬ËùÒÔÖ»»á·µ»ØÒ»¸öCustomer
+        // å‡è®¾åå­—æ˜¯å”¯ä¸€çš„ï¼Œæ‰€ä»¥åªä¼šè¿”å›ä¸€ä¸ªCustomer
         Customer* Get(std::string customer_name);
+        Customer** GetAll();
 
         void Delete(std::string customer_name);
-
     };
-}
-
+}  // namespace ds
