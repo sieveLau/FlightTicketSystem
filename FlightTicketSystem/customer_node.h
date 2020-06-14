@@ -18,8 +18,6 @@ namespace ds {
 
         // 返回指针，可以直接修改数据
         ds::Customer* GetData() const;
-        // 把原来的delete，再用复制构造器新建一个
-        void SetData(ds::Customer* data);
 
         CustomerNode* GetNextNode();
 

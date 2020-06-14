@@ -8,7 +8,7 @@ ds::CustomerNode::CustomerNode(const CustomerNode& another) {
     next_node_ = another.next_node_;
 }
 ds::CustomerNode::CustomerNode(CustomerNode&& another) noexcept {
-    data_      = std::move(another.data_);
+    data_      = another.data_;
     next_node_ = another.next_node_;
     another.Reset();
 }
@@ -26,14 +26,11 @@ ds::CustomerNode& ds::CustomerNode::operator=(CustomerNode another) {
     return *this;
 }
 ds::CustomerNode::~CustomerNode() {
-    delete data_;
+    data_ = nullptr;
     next_node_ = nullptr;
 }
 ds::Customer* ds::CustomerNode::GetData() const { return data_; }
-void ds::CustomerNode::SetData(ds::Customer* data) {
-    delete data_;
-    data_ = data;
-}
+
 ds::CustomerNode* ds::CustomerNode::GetNextNode() { return next_node_; }
 void ds::CustomerNode::SetNextNode(CustomerNode* next_node) {
     next_node_ = next_node;

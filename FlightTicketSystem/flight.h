@@ -1,8 +1,6 @@
 #ifndef __FLIGHT_H__
 #define __FLIGHT_H__
 
-#include <bits/stdint-uintn.h>
-
 #include <array>
 #include <string>
 
@@ -23,10 +21,7 @@ namespace ds {
         Flight(std::string destination, std::string flight_number,
                std::string air_plane_number, DAYS weekday,
                u_int8_t* total_seats, u_int8_t* available_seats = nullptr);
-        Flight(std::string destination, std::string flight_number,
-               std::string air_plane_number, DAYS weekday,
-               std::array<u_int8_t, 3> total_seats,
-               std::array<u_int8_t, 3> available_seats);
+
         Flight(const Flight& another);
         Flight(Flight&&) noexcept;
         ~Flight();
@@ -49,12 +44,19 @@ namespace ds {
         u_int8_t GetAvailLevel2() const;
         u_int8_t GetAvailLevel3() const;
 
-        void SetAvailSeats(int16_t* AvailSeats);
+        void SetAvailSeats(u_int8_t* available_seats);
+        void SetAvailSeats(u_int8_t level1 = 0, u_int8_t level2 = 0,
+                     u_int8_t level3 = 0);
 
         int BookSeat(u_int8_t level1 = 0, u_int8_t level2 = 0,
                      u_int8_t level3 = 0);
+
+        int BookSeat(uint8_t* levelset);
+
         int Refund(u_int8_t level1 = 0, u_int8_t level2 = 0,
                    u_int8_t level3 = 0);
+
+        int Refund(uint8_t* levelset);
     };
 }  // namespace ds
 

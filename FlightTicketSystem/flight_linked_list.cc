@@ -18,9 +18,9 @@ namespace ds {
 
     FlightLinkedList::~FlightLinkedList() {
         auto* current = head_;
-        while (length_!=0) {
-            if (current == nullptr)break;
+        while (current!=nullptr) {
             head_ = current->GetNextNode();
+            delete current->GetData();
             delete current;
             current = head_;
             --length_;
@@ -41,7 +41,7 @@ namespace ds {
         head_   = another.head_;
         another.Reset();
     }
-    FlightLinkedList::FlightLinkedList(const FlightLinkedList& another): FlightLinkedList::FlightLinkedList() {
+    FlightLinkedList::FlightLinkedList(const FlightLinkedList& another) {
         auto* current = another.head_;
         // 用值传递的Insert来复制FlightNode
         while (current != nullptr) {
@@ -49,34 +49,36 @@ namespace ds {
             current = current->GetNextNode();
         }
     }
-    FlightLinkedList::FlightLinkedList(Flight* flight) : FlightLinkedList(){
-        Insert(flight);
-    }
-
-    void FlightLinkedList::Insert(Flight* flight) {
-        head_ = new FlightNode(flight, head_);
-        ++length_;
-    }
 
     void FlightLinkedList::Insert(Flight flight) {
         head_ = new FlightNode(new Flight(std::move(flight)), head_);
         ++length_;
     }
+    Flight** FlightLinkedList::ToArray() {
+            auto* current   = head_;
+            Flight** result = new Flight*[length_]{nullptr};
+            for (size_t i = 0; current!=nullptr;++i) {
+                result[i] = current->GetData();
+                current   = current->GetNextNode();
+            }
+            return result;
+        }
     void FlightLinkedList::Clear() {
         while (head_ != nullptr) {
             auto* current = head_->GetNextNode();
+            delete head_->GetData();
             delete head_;
             head_ = current;
             --length_;
         }
     }
-    FlightLinkedList* FlightLinkedList::GetByDestination(std::string destination) {
+    Flight** FlightLinkedList::GetByDestination(std::string destination) {
         auto* current = head_;
-        auto* result  = new FlightLinkedList;
+        Flight** result  = new Flight*[length_+1]{nullptr};
+        size_t i = 0;
         while (current != nullptr) {
-            auto* data = current->GetData();
-            if ((*data).GetDestination() == destination) {
-                result->Insert(data);
+            if (current->GetData()->GetDestination() == destination) {
+                result[i++] = current->GetData();
             }
             current = current->GetNextNode();
         }

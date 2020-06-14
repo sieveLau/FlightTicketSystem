@@ -8,7 +8,8 @@
 namespace ds {
     class Customer {
         std::string name_;
-        SimpleFlightLinkedList* sfll_;
+        SimpleFlightLinkedList want_list;
+        SimpleFlightLinkedList booked_list;
 
        public:
         Customer() = delete;
@@ -22,7 +23,9 @@ namespace ds {
 
         std::string GetName() const { return name_; }
 
+        //务必delete
         uint8_t* GetSeatWant(std::string flight_number);
+        //务必delete
         uint8_t* GetSeatBooked(std::string flight_number);
 
         bool HasWant();

@@ -1,7 +1,5 @@
 #include "flight.h"
 
-#include <bits/stdint-uintn.h>
-
 #include <iostream>
 
 #include "defs.h"
@@ -88,10 +86,22 @@ namespace ds {
 
     u_int8_t Flight::GetAvailLevel3() const { return available_seats_[2]; }
 
-    void Flight::SetAvailSeats(int16_t* AvailSeats) {
-        for (size_t i = 0; i < 3; i++) { available_seats_[i] = AvailSeats[i]; }
+    void Flight::SetAvailSeats(u_int8_t* available_seats) {
+        for (size_t i = 0; i < 3; i++) { available_seats_[i] = available_seats[i]; }
     }
+    void Flight::SetAvailSeats(u_int8_t level1, u_int8_t level2,
+        u_int8_t level3) {
+        available_seats_[0] = level1;
+        available_seats_[1] = level2;
+        available_seats_[2] = level3;
+
+    }
+
+
     int Flight::BookSeat(u_int8_t level1, u_int8_t level2, u_int8_t level3) {
+
+
+        // 因为可能是负数，所以要用有符号
         int16_t result[3];
 
         result[0] = available_seats_[0] - level1;
@@ -99,12 +109,17 @@ namespace ds {
         result[2] = available_seats_[2] - level3;
 
         for (size_t i = 0; i < 3; i++) {
-            if (result[i] < 0)
+            if (result[i] < 0) {
+                std::cerr << "Not enough seats. Book failed." << std::endl;
                 return -1;
+            }
         }
 
-        SetAvailSeats(result);
+        SetAvailSeats((uint8_t)result[0],(uint8_t)result[1],(uint8_t)result[2]);
         return 0;
+    }
+    int Flight::BookSeat(uint8_t* levelset) {
+        return BookSeat(levelset[0], levelset[1], levelset[2]);
     }
 
     int Flight::Refund(u_int8_t level1, u_int8_t level2, u_int8_t level3) {
@@ -123,10 +138,16 @@ namespace ds {
             }
         }
 
-        SetAvailSeats(result);
-
+        SetAvailSeats((uint8_t)result[0],(uint8_t)result[1],(uint8_t)result[2]);
         return 0;
     }
+    int Flight::Refund(uint8_t* levelset) {
+        return Refund(levelset[0],
+            levelset[1],
+            levelset[2]
+        );
+    }
+
     Flight::Flight(const Flight& another) {
         destination_      = another.destination_;
         flight_number_    = another.flight_number_;
@@ -138,17 +159,5 @@ namespace ds {
         }
     }
 
-    Flight::Flight(std::string destination, std::string flight_number,
-                   std::string air_plane_number, DAYS weekday,
-                   std::array<u_int8_t, 3> total_seats,
-                   std::array<u_int8_t, 3> available_seats) {
-        destination_      = destination;
-        flight_number_    = flight_number;
-        air_plane_number_ = air_plane_number;
-        weekday_          = weekday;
-        for (size_t i = 0; i < 3; i++) {
-            total_seats_[i]     = total_seats.at(i);
-            available_seats_[i] = available_seats.at(i);
-        }
-    }
+    
 }  // namespace ds

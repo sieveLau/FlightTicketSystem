@@ -68,19 +68,19 @@ namespace ds {
                     head_ = head_->GetNextNode();
                 }
                 current->SetNextNode(next->GetNextNode());
-
+                // 因为 Node 不会自己删数据，所以靠List自己来删
+                delete next->GetData();
                 delete next;
                 --length_;
                 return;
-            };
+            }
             next = next->GetNextNode();
             if (next != current)
                 current = current->GetNextNode();
         }
     }
-
-    ds::SimpleFlight* SimpleFlightLinkedList::Get(
-        std::string flight_number) const {
+    // 不要delete
+    ds::SimpleFlight* SimpleFlightLinkedList::Get(std::string flight_number) const {
         auto* current = head_;
         while (current != nullptr) {
             if (current->GetData()->GetFlightNumber() == flight_number) {
@@ -91,13 +91,19 @@ namespace ds {
         return nullptr;
     }
 
-    ds::SimpleFlight** SimpleFlightLinkedList::ToArray() {
+    ds::SimpleFlight** SimpleFlightLinkedList::ToArray() const {
         ds::SimpleFlight** result = new SimpleFlight* [length_ + 1] { nullptr };
         auto* current             = head_;
-        for (int i = 0; current != nullptr;) {
+        for (int i = 0; current != nullptr;++i) {
             result[i] = new SimpleFlight(*current->GetData());
             current   = current->GetNextNode();
         }
         return result;
+    }
+    void SimpleFlightLinkedList::Clear() {
+        auto* current             = head_;
+        while(current!=nullptr) {
+            Delete(current->GetData()->GetFlightNumber());
+        }
     }
 }  // namespace ds

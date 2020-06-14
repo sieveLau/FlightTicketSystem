@@ -13,23 +13,29 @@ namespace ds {
         using std::array;
         auto* fll = new FlightLinkedList();
 
-        fll->Insert(new Flight("Hangzhou", "FM9158", "B737c", DAYS::TUE,
-                               std::array<uint8_t, 3>{5, 10, 20},
-                               std::array<uint8_t, 3>{5, 10, 20}));
-        fll->Insert(new Flight("Hangzhou", "FM9987", "B737c", DAYS::WES,
-                               std::array<uint8_t, 3>{5, 10, 20},
-                               std::array<uint8_t, 3>{5, 10, 20}));
-        fll->Insert(new Flight("Hangzhou", "FM9986", "B737b", DAYS::WES,
-                               std::array<uint8_t, 3>{10, 10, 100},
-                               std::array<uint8_t, 3>{10, 10, 100}));
+        uint8_t seats1[3]{ 5,10,20 };
+        uint8_t seats2[3]{ 5,5,10 };
+        uint8_t seats3[3]{ 5,5,20 };
+        uint8_t seats4[3]{ 10,10,100 };
 
-        fll->Insert(new Flight("Guangzhou", "CA4319", "B737a", DAYS::SAT,
-                               std::array<uint8_t, 3>{5, 5, 10},
-                               std::array<uint8_t, 3>{5, 5, 20}));
+        fll->Insert(Flight("Hangzhou", "FM9158", "B737c", DAYS::TUE,
+                               seats1,
+                               seats1));
+        
+        fll->Insert(Flight("Hangzhou", "FM9987", "B737c", DAYS::WES,
+                               seats2,
+                               seats2));
+        fll->Insert(Flight("Hangzhou", "FM9986", "B737b", DAYS::WES,
+                               seats4,
+                               seats4));
 
-        fll->Insert(new Flight("Beijing", "MU2368", "B737b", DAYS::SUN,
-                               std::array<uint8_t, 3>{10, 10, 100},
-                               std::array<uint8_t, 3>{10, 10, 100}));
+        fll->Insert(Flight("Guangzhou", "CA4319", "B737a", DAYS::SAT,
+                               seats2,
+                               seats2));
+
+        fll->Insert(Flight("Beijing", "MU2368", "B737b", DAYS::SUN,
+                               seats4,
+                               seats4));
         return fll;
     }
 }  // namespace ds

@@ -80,9 +80,6 @@
     <ClInclude Include="day_name.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="flight.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="defs.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -121,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="refunder.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="flight.h">
+      <Filter>源文件\flight linked list</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

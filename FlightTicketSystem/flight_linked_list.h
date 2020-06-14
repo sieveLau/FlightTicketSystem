@@ -1,8 +1,6 @@
 #ifndef __FLIGHT_LINKED_LIST_H__
 #define __FLIGHT_LINKED_LIST_H__
 
-#include <vector>
-
 #include "flight.h"
 #include "flight_node.h"
 namespace ds {
@@ -25,7 +23,7 @@ namespace ds {
 
        public:
         FlightLinkedList();
-        explicit FlightLinkedList(Flight* flight);
+        explicit FlightLinkedList(Flight flight);
         FlightLinkedList(const FlightLinkedList& another);
         FlightLinkedList(FlightLinkedList&& another) noexcept;
         FlightLinkedList& operator=(FlightLinkedList another);
@@ -34,26 +32,20 @@ namespace ds {
         void Swap(FlightLinkedList& anohter);
 
         // 把flight插入到头部
-        void Insert(Flight* flight);
         void Insert(Flight flight);
 
         bool empty() const { return !(length_); }
         size_t GetLength() const { return length_; }
-        Flight** ToArray() {
-            auto* current   = head_;
-            Flight** result = new Flight*[length_];
-            for (size_t i = 0; i < length_; i++) {
-                if (current == nullptr)break;
-                result[i] = current->GetData();
-                current   = current->GetNextNode();
-            }
-            return result;
-        }
+
+        // 输出所有内容，可以修改，请小心使用
+        // 请勿delete
+        Flight** ToArray();
 
         void Clear();
 
-        // 根据目的地找飞机，输出所有飞机
-        FlightLinkedList* GetByDestination(std::string destination);
+        // 根据目的地找飞机，输出所有飞机，结尾是nullptr
+        // 可以修改，请勿delete
+        Flight** GetByDestination(std::string destination);
 
         Flight* GetByFlightNumber(std::string flight_number);
     };

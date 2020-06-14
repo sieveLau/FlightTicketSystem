@@ -18,14 +18,10 @@ namespace ds {
 
         // 返回指针，可以直接修改数据
         ds::Flight* GetData() const;
-        // 把原来的delete，再用复制构造器新建一个
-        void SetData(ds::Flight* data);
 
         FlightNode* GetNextNode();
 
         void SetNextNode(FlightNode* next_node);
-
-        
 
        private:
         ds::Flight* data_;

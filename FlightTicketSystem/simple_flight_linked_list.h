@@ -35,7 +35,9 @@ namespace ds {
 
         //生成新的array
         // 请务必delete
-        ds::SimpleFlight** ToArray();
+        ds::SimpleFlight** ToArray() const;
+
+        void Clear();
 
        private:
         SimpleFlightNode* head_;

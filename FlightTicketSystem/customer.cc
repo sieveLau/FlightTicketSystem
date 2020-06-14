@@ -3,36 +3,34 @@
 #include "simple_flight.h"
 
 namespace ds {
-    Customer::Customer(std::string name) {
-        name_ = name;
-        sfll_ = new SimpleFlightLinkedList();
-    }
+    Customer::Customer(std::string name) { name_ = name; }
 
-    Customer::~Customer() {
-        name_ = "";
-        delete sfll_;
-    }
+    Customer::~Customer() { name_ = ""; }
 
     Customer::Customer(Customer&& another) noexcept {
-        name_ = another.name_;
-        sfll_ = another.sfll_;
+        name_       = another.name_;
+        want_list   = std::move(another.want_list);
+        booked_list = std::move(another.booked_list);
         another.Reset();
     }
 
     Customer::Customer(const Customer& another) {
-        name_ = another.name_;
-        sfll_ = new SimpleFlightLinkedList(*another.sfll_);
+        name_       = another.name_;
+        want_list   = another.want_list;
+        booked_list = another.booked_list;
     }
 
     void Customer::Swap(Customer& another) {
         using std::swap;
         swap(name_, another.name_);
-        swap(sfll_, another.sfll_);
+        swap(booked_list, another.booked_list);
+        swap(want_list, another.want_list);
     }
 
     void Customer::Reset() {
         name_ = "";
-        delete sfll_;
+        want_list.Clear();
+        booked_list.Clear();
     }
 
     Customer& Customer::operator=(Customer another) {
@@ -40,98 +38,68 @@ namespace ds {
         return *this;
     }
 
+    //务必delete
     uint8_t* Customer::GetSeatWant(std::string flight_number) {
-        auto* sf = sfll_->Get(flight_number);
+        auto* sf = want_list.Get(flight_number);
         if (sf == nullptr)
-            return nullptr;
-        return sf->GetSeatWant();
+            return new uint8_t[3]{0,0,0};
+        return sf->GetSeat();
     }
 
-    // 返回的数组无法用于修改已订票数量
+    // 返回的数组无法用于修改已订票数量，且务必delete
     // 如果要修改，请使用Customer::SetSeatBooked
     uint8_t* Customer::GetSeatBooked(std::string flight_number) {
-        auto* sf = sfll_->Get(flight_number);
+        auto* sf = booked_list.Get(flight_number);
         if (sf == nullptr)
-            return nullptr;
-        return sf->GetSeatBooked();
+            return new uint8_t[3]{0,0,0};
+        return sf->GetSeat();
     }
 
     bool Customer::HasWant() {
-        if (sfll_->GetLength() == 0)
+        if (want_list.GetLength() == 0)
             return false;
-        SimpleFlight** sfs = sfll_->ToArray();
-        auto* current      = sfs[0];
-        for (int i = 0; current != nullptr;) {
-            auto* current_want = current->GetSeatWant();
-            for (int i = 0; i < 3; i++) {
-                if (current_want[i] != 0) {
-                    delete[] sfs;
-                    return true;
-                }
-            }
-            current = sfs[++i];
-        }
-        delete[] sfs;
-        return false;
+        return true;
     }
 
     bool Customer::HasBooked() {
-        if (sfll_->GetLength() == 0)
+        if (booked_list.GetLength() == 0)
             return false;
-        SimpleFlight** sfs = sfll_->ToArray();
-        auto* current      = sfs[0];
-        for (int i = 0; current != nullptr;) {
-            auto* current_booked = current->GetSeatBooked();
-            for (int i = 0; i < 3; i++) {
-                if (current_booked[i] != 0) {
-                    delete[] sfs;
-                    return true;
-                }
-            }
-            current = sfs[++i];
-        }
-        delete[] sfs;
-        return false;
-    }  // �������д���������λ��
-    // �������Ų����ڣ����½��ٲ���
+        return true;
+    }
+
+
     void Customer::SetSeatWant(std::string flight_number, uint8_t level1,
                                uint8_t level2, uint8_t level3) {
-        SimpleFlight* sf1 = sfll_->Get(flight_number);
+        SimpleFlight* sf1 = want_list.Get(flight_number);
+        uint8_t seat_want[3] = {level1, level2, level3};
         if (sf1 == nullptr) {
-            uint8_t seat_want[3] = {level1, level2, level3};
-            sfll_->Insert(SimpleFlight(flight_number, seat_want));
-        } else {
-            sf1->SetSeatWant(level1, level2, level3);
-        }
+            
+            want_list.Insert(SimpleFlight(flight_number, seat_want));
+        } else { sf1->SetSeat(seat_want); }
     }
 
     void Customer::SetSeatWant(std::string flight_number, uint8_t* levelset) {
-        SimpleFlight* sf1 = sfll_->Get(flight_number);
+        SimpleFlight* sf1 = want_list.Get(flight_number);
         if (sf1 == nullptr) {
-            sfll_->Insert(SimpleFlight(flight_number, levelset));
-        } else {
-            sf1->SetSeatWant(levelset);
-        }
+            want_list.Insert(SimpleFlight(flight_number, levelset));
+        } else { sf1->SetSeat(levelset); }
     }
 
     void Customer::SetSeatBooked(std::string flight_number, uint8_t level1,
                                  uint8_t level2, uint8_t level3) {
-        SimpleFlight* sf1 = sfll_->Get(flight_number);
+        SimpleFlight* sf1 = booked_list.Get(flight_number);
+        uint8_t seat_booked[3] = {level1, level2, level3};
         if (sf1 == nullptr) {
-            uint8_t seat_booked[3] = {level1, level2, level3};
-            sfll_->Insert(SimpleFlight(flight_number, nullptr, seat_booked));
-        } else {
-            sf1->SetSeatBooked(level1, level2, level3);
-        }
+            
+            booked_list.Insert(SimpleFlight(flight_number, seat_booked));
+        } else { sf1->SetSeat(level1, level2, level3); }
     }
 
     void Customer::SetSeatBooked(std::string flight_number, uint8_t* levelset) {
-        SimpleFlight* sf1 = sfll_->Get(flight_number);
+        SimpleFlight* sf1 = booked_list.Get(flight_number);
         if (sf1 == nullptr) {
-            sfll_->Insert(SimpleFlight(flight_number, nullptr, levelset));
-        } else {
-            sf1->SetSeatBooked(levelset);
-        }
+            booked_list.Insert(SimpleFlight(flight_number, levelset));
+        } else { sf1->SetSeat(levelset); }
     }
 
-}  // namespace ds
+} // namespace ds

@@ -29,6 +29,7 @@ void PrintCustomers(ds::CustomerLinkedList* customer_list) {
         customer = customers[++i];
     }
     ds::PrintHorizonLine();
+    delete[] customers;
 }
 
 int main() {
@@ -63,26 +64,26 @@ int main() {
     // 测试订票系统（1）：有足够余票订票，第一位客户
     ds::Check("FM9158", 4, 0, 0, "Freda", fll, &booked, &waiting);
     ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
-
-    // 测试订票系统（2）：有足够余票订票，第二位客户
+    //
+    // // 测试订票系统（2）：有足够余票订票，第二位客户
     ds::Check("FM9158", 0, 0, 5, "Gail", fll, &booked, &waiting);
     ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
-
-    // 测试订票系统（3）：有足够余票订票，第三位客户
+    //
+    // // 测试订票系统（3）：有足够余票订票，第三位客户
     ds::Check("FM9158", 0, 0, 8, "Hazel", fll, &booked, &waiting);
     ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
-
-    // 测试订票系统（4）：没有足够余票订票，第四位客户，拒绝候补
+    //
+    // // 测试订票系统（4）：没有足够余票订票，第四位客户，拒绝候补
     ds::Check("FM9158", 0, 0, 8, "Hulda", fll, &booked, &waiting);
     ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
-
-    // 测试订票系统（5）：没有足够余票订票，第四位客户，愿意候补
+    //
+    // // 测试订票系统（5）：没有足够余票订票，第四位客户，愿意候补
     ds::Check("FM9158", 0, 0, 8, "Hulda", fll, &booked, &waiting);
     ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
-
+    //
     printf("Customers waiting:\n");
     PrintCustomers(&waiting);
-
+    
     printf("Customers booked:\n");
     PrintCustomers(&booked);
 
@@ -95,27 +96,31 @@ int main() {
     */
 
     // 测试退票系统（1）：退票，没人候补
-    ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
-    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
+    // ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
+    // ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
+    //
+    // printf("Customers waiting:\n");
+    // PrintCustomers(&waiting);
+    // printf("Customers booked:\n");
+    // PrintCustomers(&booked);
+    //
+    // // 测试退票系统（2）：重复退票
+    // ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
+    // ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
+    // ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
+    //
+    // // 测试退票系统（3）：退票，有人候补
+    // ds::Refunder("Gail", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
+    // ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
+    //
+    // printf("Customers waiting:\n");
+    // PrintCustomers(&waiting);
+    // printf("Customers booked:\n");
+    // PrintCustomers(&booked);
 
-    printf("Customers waiting:\n");
-    PrintCustomers(&waiting);
-    printf("Customers booked:\n");
-    PrintCustomers(&booked);
 
-    // 测试退票系统（2）：重复退票
-    ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
-    ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
-    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
 
-    // 测试退票系统（3）：退票，有人候补
-    ds::Refunder("Gail", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
-    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
 
-    printf("Customers waiting:\n");
-    PrintCustomers(&waiting);
-    printf("Customers booked:\n");
-    PrintCustomers(&booked);
 
     // ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::WES);
     // ds::Check("FM9987", 0, 8, 0, "Adam", fll, &booked, &waiting);
