@@ -56,6 +56,8 @@ namespace ds {
         return sf->GetSeatBooked();
     }
 
+    // 按航班号写入需求的座位数
+    // 如果航班号不存在，会新建再插入
     void Customer::SetSeatWant(std::string flight_number, uint8_t level1,
         uint8_t level2, uint8_t level3)
     {

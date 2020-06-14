@@ -20,7 +20,7 @@ namespace ds {
                     return nullptr;
                 }
             }
-            return current->GetData();
+            return current==nullptr?nullptr:current->GetData();
         };
 
        public:

@@ -26,9 +26,19 @@ int main() {
     ds::CustomerLinkedList booked(true);
     ds::CustomerLinkedList waiting(false);
 
-    ds::Check("FM9987", 10, 100, 200, "Adam", fll, &booked, &waiting);
+    ds::Check("FM9987", 4, 0, 0, "Adam", fll, &booked, &waiting);
+    
+    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::WES);
+    ds::Check("FM9987", 0, 8, 0, "Adam", fll, &booked, &waiting);
+    ds::Check("FM9987", 0, 2, 0, "Abam", fll, &booked, &waiting);
+    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::WES);
+    // ds::Check("FM9987", 0, 8, 0, "Adam", fll, &booked, &waiting);
+    
 
-
+    
+    auto * booked_adam = booked.Get("Adam")->GetSeatBooked("FM9987");
+    //务必确认get回来的是不是nullptr，这里是不会帮你检查的，下面这条就会暴毙
+    // auto * waiting_adam = waiting.Get("Adam")->GetSeatBooked("FM9987");
     int16_t newavail[]{0, 0, 0};
     return 0;
 }

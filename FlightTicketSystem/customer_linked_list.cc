@@ -1,5 +1,6 @@
 #include "customer_linked_list.h"
 #include <functional>
+#include <iostream>
 
 void ds::CustomerLinkedList::InsertToTail(Customer customer) {
     InsertToTail(new Customer(customer));
@@ -116,7 +117,11 @@ ds::Customer* ds::CustomerLinkedList::Get(std::string customer_name) {
         }
         current = current->GetNextNode();
     }
-    return current==nullptr?nullptr:current->GetData();
+    if(current==nullptr) {
+        std::cerr << "Warning: customer doesn't exist in the list! (ds::CustomerLinkedList::Get)";
+        return  nullptr;
+    }
+    return current->GetData();
 }
 void ds::CustomerLinkedList::Delete(std::string customer_name) {
     auto* current = head_;
