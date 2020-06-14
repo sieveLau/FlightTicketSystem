@@ -82,6 +82,8 @@ namespace ds {
         }
         return result;
     }
+
+    // 如果找不到，返回nullptr
     Flight* FlightLinkedList::GetByFlightNumber(std::string flight_number) {
         auto* current = head_;
         while (current != nullptr) {
