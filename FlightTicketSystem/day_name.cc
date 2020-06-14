@@ -16,4 +16,20 @@ namespace ds {
             }
         }
     }
+
+    int ToInt(DAYS day) {
+        {
+            switch (day) {
+                case DAYS::MON: return 1; break;
+                case DAYS::TUE: return 2; break;
+                case DAYS::WES: return 3; break;
+                case DAYS::THU: return 4; break;
+                case DAYS::FRI: return 5; break;
+                case DAYS::SAT: return 6; break;
+                case DAYS::SUN: return 7; break;
+
+                default: return 0; break;
+            }
+        }
+    }
 }  // namespace ds

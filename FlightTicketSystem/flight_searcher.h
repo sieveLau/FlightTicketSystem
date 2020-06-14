@@ -11,24 +11,28 @@
 
 namespace ds {
     int DiffDay(DAYS target_day, DAYS today);
-    inline void SearchFlight(FlightLinkedList* flight_list,
-                      std::string destination, DAYS today) {
+    void PrintHorizonLine();
 
+    inline void SearchFlight(FlightLinkedList *flight_list,
+                             std::string destination, DAYS today) {
         FlightLinkedList all_flights =
-            *(flight_list->GetByDestination(std::move(destination)));
+            *(flight_list->GetByDestination(destination));
 
         //目的地筛选的时候就没有符合的话，就退出。
         if (all_flights.empty()) {
             std::cout << "No flight matches your requirement!" << std::endl;
+            PrintHorizonLine();
             return;
         }
 
         // 输出符合目的地要求的航班的信息，包括余票量
-        std::cout << "All flights: " << std::endl;
+        std::cout << "All flights to "
+                  << "\e[1m" << destination << "\e[0m"
+                  << ": " << std::endl;
         printf("%-18s%-18s%-18s\n", "Flight Number", "Airplane Number",
                "Fly Date");
 
-        int diffday                = 7;
+        int diffday = 7;
 
         Flight **all_flights_as_array = all_flights.ToArray();
 
@@ -52,8 +56,8 @@ namespace ds {
         std::cout << std::endl;
 
         // 输出符合要求的最近一天的航班的信息，包括余票量
-        DAYS nearest_day = static_cast<ds::DAYS>((int)today + diffday);
-        std::cout << "Nearest day flights on " << DAYSToString(nearest_day)
+        // DAYS nearest_day = static_cast<ds::DAYS>((int)today + diffday);
+        std::cout << "Nearest day flights"
                   << ": " << std::endl;
         printf("%-18s%-18s%-18s%-18s%-10s%-10s%-10s\n", "Flight Number",
                "Airplane Number", "Fly Date", "Avail. Seats", "Avail. 1",
@@ -70,11 +74,21 @@ namespace ds {
                    flight->GetAvailLevel1(), flight->GetAvailLevel2(),
                    flight->GetAvailLevel3());
         }
+        // 打印分割线
+        PrintHorizonLine();
     }
 
     int DiffDay(DAYS target_day, DAYS today) {
-        int diff = (int)target_day - (int)today;
-        return diff < 0 ? 7 - diff : diff;
+        int td  = ToInt(target_day);
+        int td2 = ToInt(today);
+
+        int diff = td - td2;
+
+        return diff < 0 ? 7 + diff : diff;
+    }
+
+    void PrintHorizonLine() {
+        printf("%s\n", std::string(30 + 4 * 18, '-').c_str());
     }
 }  // namespace ds
 #endif  // __FLIGHT_SEARCHER_H__

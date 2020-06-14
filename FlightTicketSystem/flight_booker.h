@@ -1,18 +1,20 @@
 #pragma once
 #include <string>
-#include "customer.h"
-#include "flight_linked_list.h"
-#include "customer_linked_list.h"
-namespace ds
-{
-    
-    // ²éÑ¯ÊÇ·ñÓĞÓàÆ±
-    void Check(std::string flight_number, uint8_t want_level1,
-    uint8_t want_level2, uint8_t want_level3, std::string customer_name,
-    FlightLinkedList* flights, CustomerLinkedList* customers_booked,CustomerLinkedList* customers_waiting);
-    // ÓĞ×ã¹»µÄÆ±£¬Âò
-    // void Book(Customer* customer,CustomerLinkedList* customers_booked,Flight* flight);
-    // // Ã»ÓĞ×ã¹»µÄÆ±£¬½øÈëµÈ´ıĞòÁĞ
-    // void Wait();
-}
 
+#include "customer.h"
+#include "customer_linked_list.h"
+#include "flight_linked_list.h"
+namespace ds {
+
+    // æŸ¥è¯¢æ˜¯å¦æœ‰ä½™ç¥¨
+    void Check(std::string flight_number, uint8_t want_level1,
+               uint8_t want_level2, uint8_t want_level3,
+               std::string customer_name, FlightLinkedList* flights,
+               CustomerLinkedList* customers_booked,
+               CustomerLinkedList* customers_waiting);
+    // æœ‰è¶³å¤Ÿçš„ç¥¨ï¼Œä¹°
+    // void Book(Customer* customer,CustomerLinkedList* customers_booked,Flight*
+    // flight);
+    // // æ²¡æœ‰è¶³å¤Ÿçš„ç¥¨ï¼Œè¿›å…¥ç­‰å¾…åºåˆ—
+    // void Wait();
+}  // namespace ds

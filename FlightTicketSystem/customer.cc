@@ -1,5 +1,7 @@
 #include "customer.h"
 
+#include "simple_flight.h"
+
 namespace ds {
     Customer::Customer(std::string name) {
         name_ = name;
@@ -54,7 +56,43 @@ namespace ds {
         return sf->GetSeatBooked();
     }
 
-    // �������д���������λ��
+    bool Customer::HasWant() {
+        if (sfll_->GetLength() == 0)
+            return false;
+        SimpleFlight** sfs = sfll_->ToArray();
+        auto* current      = sfs[0];
+        for (int i = 0; current != nullptr;) {
+            auto* current_want = current->GetSeatWant();
+            for (int i = 0; i < 3; i++) {
+                if (current_want[i] != 0) {
+                    delete[] sfs;
+                    return true;
+                }
+            }
+            current = sfs[++i];
+        }
+        delete[] sfs;
+        return false;
+    }
+
+    bool Customer::HasBooked() {
+        if (sfll_->GetLength() == 0)
+            return false;
+        SimpleFlight** sfs = sfll_->ToArray();
+        auto* current      = sfs[0];
+        for (int i = 0; current != nullptr;) {
+            auto* current_booked = current->GetSeatBooked();
+            for (int i = 0; i < 3; i++) {
+                if (current_booked[i] != 0) {
+                    delete[] sfs;
+                    return true;
+                }
+            }
+            current = sfs[++i];
+        }
+        delete[] sfs;
+        return false;
+    }  // �������д���������λ��
     // �������Ų����ڣ����½��ٲ���
     void Customer::SetSeatWant(std::string flight_number, uint8_t level1,
                                uint8_t level2, uint8_t level3) {

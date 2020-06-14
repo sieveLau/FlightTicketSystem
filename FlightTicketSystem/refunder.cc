@@ -69,12 +69,14 @@ void ds::Refunder(string customer_name, DAYS date, string flight_number,
 
     //退票，在客户处登记
     customer->SetSeatBooked(flight_number, 0, 0, 0);
-
+    if (!customer->HasBooked()) {
+        booked_list->Delete(customer->GetName());
+    }
     // 转接，查询是否有人候补
-    ds::CheckWaiting(flight->GetAvailAll(), waiting_list, flight);
+    ds::CheckWaiting(flight->GetAvailAll(), booked_list, waiting_list, flight);
 }
 
-void ds::CheckWaiting(uint8_t* new_avail_seats,
+void ds::CheckWaiting(uint8_t* new_avail_seats, CustomerLinkedList* booked_list,
                       CustomerLinkedList* waiting_list, Flight* flight) {
     auto avail1 = new_avail_seats[0];
     auto avail2 = new_avail_seats[1];
@@ -99,6 +101,8 @@ void ds::CheckWaiting(uint8_t* new_avail_seats,
                 current->SetSeatBooked(flight->GetFlightNumber(),
                                        current_seat_want);
                 current->SetSeatWant(flight->GetFlightNumber(), 0, 0, 0);
+                booked_list->InsertSorted(*current);
+
                 goto outer;
             }
         }

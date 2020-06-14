@@ -3,10 +3,13 @@
 
 #include "simple_flight.h"
 namespace ds {
+    // Nodeæœ¬èº«å¹¶ä¸ä¼šåˆ é™¤æ•°æ®ï¼ŒNodeåªæ˜¯æ–¹ä¾¿æ„å»ºç»“æ„
+    // Nodeåªä¼šåˆ æ‰è‡ªå·±ï¼Œä¸ä¼šåˆ data
     class SimpleFlightNode {
        public:
         SimpleFlightNode() = delete;
-        explicit SimpleFlightNode(ds::SimpleFlight* data, SimpleFlightNode* next_node = nullptr);
+        explicit SimpleFlightNode(ds::SimpleFlight* data,
+                                  SimpleFlightNode* next_node = nullptr);
 
         SimpleFlightNode(const SimpleFlightNode& another);
 
@@ -16,16 +19,12 @@ namespace ds {
         SimpleFlightNode& operator=(SimpleFlightNode another);
         ~SimpleFlightNode();
 
-        // ·µ»ØÖ¸Õë£¬¿ÉÒÔÖ±½ÓĞŞ¸ÄÊı¾İ
+        // è¿”å›æŒ‡é’ˆï¼Œå¯ä»¥ç›´æ¥ä¿®æ”¹æ•°æ®
         ds::SimpleFlight* GetData() const;
-        // °ÑÔ­À´µÄdelete£¬ÔÙÓÃ¸´ÖÆ¹¹ÔìÆ÷ĞÂ½¨Ò»¸ö
-        void SetData(ds::SimpleFlight* data);
 
         SimpleFlightNode* GetNextNode();
 
         void SetNextNode(SimpleFlightNode* next_node);
-
-        
 
        private:
         ds::SimpleFlight* data_;

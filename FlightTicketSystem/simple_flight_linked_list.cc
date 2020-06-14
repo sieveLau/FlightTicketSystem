@@ -10,13 +10,14 @@ namespace ds {
         length_ = 0;
     }
 
-    SimpleFlightLinkedList::SimpleFlightLinkedList(ds::SimpleFlight* sf) {
-        head_   = new SimpleFlightNode(sf);
+    SimpleFlightLinkedList::SimpleFlightLinkedList(ds::SimpleFlight sf) {
+        head_   = new SimpleFlightNode(new SimpleFlight(std::move(sf)));
         length_ = 1;
     }
 
     SimpleFlightLinkedList::SimpleFlightLinkedList(
-        const SimpleFlightLinkedList& another) : SimpleFlightLinkedList() {
+        const SimpleFlightLinkedList& another)
+        : SimpleFlightLinkedList() {
         auto* current = another.head_;
         while (current != nullptr) {
             Insert(*(current->GetData()));
@@ -25,7 +26,7 @@ namespace ds {
     }
     SimpleFlightLinkedList::SimpleFlightLinkedList(
         SimpleFlightLinkedList&& another) noexcept {
-        head_ = another.head_;
+        head_   = another.head_;
         length_ = another.length_;
         another.Reset();
     }
@@ -40,7 +41,7 @@ namespace ds {
         std::swap(length_, another.length_);
     }
     void SimpleFlightLinkedList::Reset() {
-        head_ = nullptr;
+        head_   = nullptr;
         length_ = 0;
     }
     SimpleFlightLinkedList::~SimpleFlightLinkedList() {
@@ -54,10 +55,7 @@ namespace ds {
     }
 
     void SimpleFlightLinkedList::Insert(SimpleFlight sf) {
-        Insert(new SimpleFlight(sf));
-    }
-    void SimpleFlightLinkedList::Insert(SimpleFlight* sf) {
-        head_ = new SimpleFlightNode(sf, head_);
+        head_ = new SimpleFlightNode(new SimpleFlight(std::move(sf)), head_);
         ++length_;
     }
 
@@ -66,7 +64,9 @@ namespace ds {
         auto* next    = current;
         while (next != nullptr) {
             if (next->GetData()->GetFlightNumber() == flight_number) {
-                if (next == head_) { head_ = head_->GetNextNode(); }
+                if (next == head_) {
+                    head_ = head_->GetNextNode();
+                }
                 current->SetNextNode(next->GetNextNode());
 
                 delete next;
@@ -90,4 +90,14 @@ namespace ds {
         }
         return nullptr;
     }
-} // namespace sieve
+
+    ds::SimpleFlight** SimpleFlightLinkedList::ToArray() {
+        ds::SimpleFlight** result = new SimpleFlight* [length_ + 1] { nullptr };
+        auto* current             = head_;
+        for (int i = 0; current != nullptr;) {
+            result[i] = new SimpleFlight(*current->GetData());
+            current   = current->GetNextNode();
+        }
+        return result;
+    }
+}  // namespace ds

@@ -9,5 +9,6 @@ namespace ds {
     enum class DAYS { MON = 1, TUE, WES, THU, FRI, SAT, SUN };
 
     std::string DAYSToString(DAYS);
+    int ToInt(DAYS);
 }  // namespace ds
 #endif  // __DAY_NAME_H__

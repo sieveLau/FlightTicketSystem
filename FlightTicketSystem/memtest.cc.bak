@@ -1,0 +1,13 @@
+#include <bits/stdint-uintn.h>
+#include <sys/types.h>
+
+#include <cstdio>
+#include <cstring>
+
+int main() {
+    uint8_t target[3]{1, 2, 3};
+    u_int8_t source[3]{0, 0, 0};
+    memmove(source, target, sizeof(target[0]) * 3);
+    printf("%u %u %u", source[0], source[1], source[2]);
+    printf("%u %u %u", target[0], target[1], target[2]);
+}
