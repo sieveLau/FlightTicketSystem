@@ -56,15 +56,12 @@ namespace ds {
     }
 
     bool Customer::HasWant() {
-        if (want_list.GetLength() == 0)
-            return false;
-        return true;
+        
+        return want_list.GetLength()==0?false:true;
     }
 
     bool Customer::HasBooked() {
-        if (booked_list.GetLength() == 0)
-            return false;
-        return true;
+        return booked_list.GetLength()==0?false:true;
     }
 
 

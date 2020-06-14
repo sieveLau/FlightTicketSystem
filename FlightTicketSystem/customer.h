@@ -36,10 +36,14 @@ namespace ds {
 
         void SetSeatWant(std::string flight_number, uint8_t* levelset);
 
+        void DeleteSeatWant(std::string flight_number) { want_list.Delete(flight_number); }
+
         void SetSeatBooked(std::string flight_number, uint8_t level1,
                            uint8_t level2, uint8_t level3);
 
         void SetSeatBooked(std::string flight_number, uint8_t* levelset);
+
+        void DeleteSeatBooked(std::string flight_number) { booked_list.Delete(flight_number); }
     };
 }  // namespace ds
 #endif  // __CUSTOMER_H__

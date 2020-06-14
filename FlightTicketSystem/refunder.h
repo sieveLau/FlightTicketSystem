@@ -14,6 +14,9 @@ namespace ds {
                   CustomerLinkedList* booked_list,
                   CustomerLinkedList* waiting_list, FlightLinkedList* flights);
 
+    void ListMaintainer(Customer customer, CustomerLinkedList* booked_list,
+        CustomerLinkedList* waiting_list);
+
     void CheckWaiting(uint8_t* new_avail_seats, CustomerLinkedList* booked_list,
                       CustomerLinkedList* waiting_list, Flight* flight);
 }  // namespace ds

@@ -53,7 +53,7 @@ void ds::Refunder(string customer_name, DAYS date, string flight_number,
     }
 
     //退票，在航班处登记
-#ifdef DEBUG
+
     int status =
         flight->Refund(customer_origin_booked[0], customer_origin_booked[1],
                        customer_origin_booked[2]);
@@ -61,20 +61,24 @@ void ds::Refunder(string customer_name, DAYS date, string flight_number,
         printf("refund fail\n");
     } else
         printf("refund succeed!\n");
-#endif  // DEBUG
-#ifndef DEBUG
-    flight->Refund(customer_origin_booked[0], customer_origin_booked[1],
-                   customer_origin_booked[2]);
-#endif  // DEBUG
 
     //退票，在客户处登记
-    customer->SetSeatBooked(flight_number, 0, 0, 0);
-    if (!customer->HasBooked()) {
-        booked_list->Delete(customer->GetName());
-    }
+    customer->DeleteSeatBooked(flight_number);
+    
+    ListMaintainer(*customer, booked_list, waiting_list);
     // 转接，查询是否有人候补
     ds::CheckWaiting(flight->GetAvailAll(), booked_list, waiting_list, flight);
 }
+void ds::ListMaintainer(Customer customer, CustomerLinkedList* booked_list,
+    CustomerLinkedList* waiting_list) {
+    if(!customer.HasBooked()) {
+        booked_list->Delete(customer.GetName());
+    }
+    if(!customer.HasWant()) {
+        waiting_list->Delete(customer.GetName());
+    }
+}
+
 
 void ds::CheckWaiting(uint8_t* new_avail_seats, CustomerLinkedList* booked_list,
                       CustomerLinkedList* waiting_list, Flight* flight) {
@@ -100,14 +104,18 @@ void ds::CheckWaiting(uint8_t* new_avail_seats, CustomerLinkedList* booked_list,
                                  current_seat_want[2]);
                 current->SetSeatBooked(flight->GetFlightNumber(),
                                        current_seat_want);
-                current->SetSeatWant(flight->GetFlightNumber(), 0, 0, 0);
+                current->DeleteSeatWant(flight->GetFlightNumber());
                 booked_list->InsertSorted(*current);
-
+                delete[] current_seat_want;
                 goto outer;
             }
         }
+        delete[] current_seat_want;
         current = all_waiting[++i];
     }
 outer:
     delete[] new_avail_seats;
+    delete[] all_waiting;
+    if(current==nullptr)return;
+    ListMaintainer(*current, booked_list, waiting_list);
 }

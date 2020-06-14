@@ -60,7 +60,7 @@
     <ClCompile Include="flight_booker.cc">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="refunder.cpp">
+    <ClCompile Include="refunder.cc">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,11 +116,11 @@
     <ClInclude Include="flight_booker.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="refunder.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="flight.h">
       <Filter>源文件\flight linked list</Filter>
+    </ClInclude>
+    <ClInclude Include="refunder.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -122,6 +122,7 @@ namespace ds {
         return BookSeat(levelset[0], levelset[1], levelset[2]);
     }
 
+    //如果给的票太多，会报失败-1
     int Flight::Refund(u_int8_t level1, u_int8_t level2, u_int8_t level3) {
         int16_t result[3];
         result[0] = available_seats_[0] + level1;

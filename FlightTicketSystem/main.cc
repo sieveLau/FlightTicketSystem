@@ -80,6 +80,10 @@ int main() {
     // // 测试订票系统（5）：没有足够余票订票，第四位客户，愿意候补
     ds::Check("FM9158", 0, 0, 8, "Hulda", fll, &booked, &waiting);
     ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
+
+    // 测试订票系统（5）：没有足够余票订票，第五位客户，愿意候补
+    ds::Check("FM9158", 0, 0, 8, "Stella", fll, &booked, &waiting);
+    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
     //
     printf("Customers waiting:\n");
     PrintCustomers(&waiting);
@@ -96,27 +100,27 @@ int main() {
     */
 
     // 测试退票系统（1）：退票，没人候补
-    // ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
-    // ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
+    ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
+    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
     //
-    // printf("Customers waiting:\n");
-    // PrintCustomers(&waiting);
-    // printf("Customers booked:\n");
-    // PrintCustomers(&booked);
+    printf("Customers waiting:\n");
+    PrintCustomers(&waiting);
+    printf("Customers booked:\n");
+    PrintCustomers(&booked);
     //
     // // 测试退票系统（2）：重复退票
-    // ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
-    // ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
-    // ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
+    ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
+    ds::Refunder("Freda", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
+    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
     //
     // // 测试退票系统（3）：退票，有人候补
-    // ds::Refunder("Gail", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
-    // ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
+    ds::Refunder("Gail", ds::DAYS::TUE, "FM9158", &booked, &waiting, fll);
+    ds::SearchFlight(fll, std::string("Hangzhou"), ds::DAYS::TUE);
     //
-    // printf("Customers waiting:\n");
-    // PrintCustomers(&waiting);
-    // printf("Customers booked:\n");
-    // PrintCustomers(&booked);
+    printf("Customers waiting:\n");
+    PrintCustomers(&waiting);
+    printf("Customers booked:\n");
+    PrintCustomers(&booked);
 
 
 
